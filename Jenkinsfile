@@ -68,6 +68,7 @@ pipeline {
                     """
 
                     // Apply the updated manifest to the cluster
+                  withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh """
                      kubectl apply -f ./k8s/k8s-deployment.yaml
                      kubectl apply -f ./k8s/k8s-service.yaml

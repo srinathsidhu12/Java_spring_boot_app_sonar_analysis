@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    triggers {
+        githubPush()
+    }
     environment {
         DOCKER_HUB_REPO = "srinathsidhu12/java_spring_boot_sample_app"
         IMAGE_TAG = "${BUILD_NUMBER}"

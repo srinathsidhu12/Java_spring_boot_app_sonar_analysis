@@ -70,9 +70,6 @@ pipeline {
                     // Apply the updated manifest to the cluster
                   withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                     sh """
-                     echo "KUBECONFIG path = $KUBECONFIG"
-                     ls -l $KUBECONFIG
-                     head -n 5 $KUBECONFIG
                      kubectl apply -f ./k8s/k8s-deployment.yaml
                      kubectl apply -f ./k8s/k8s-service.yaml
                      kubectl rollout status deployment/${K8S_DEPLOYMENT_NAME}

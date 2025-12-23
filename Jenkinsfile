@@ -17,7 +17,7 @@ pipeline {
         }
         stage('Maven Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'  // Tests will run and coverage report will be generated
             }
         }
         stage('SonarQube Analysis') {
@@ -32,10 +32,12 @@ pipeline {
                 // Run SonarQube analysis using Maven Sonar plugin
                 // Unique identifier for the project in SonarQube
                 // Token used by Jenkins to authenticate with SonarQube
+                // -Dsonar.coverage.jacoco.xmlReportPaths: path to JaCoCo coverage report
                 sh """
                   mvn sonar:sonar \
                     -Dsonar.projectKey=my-project \
                     -Dsonar.login=\$SONAR_TOKEN
+                    -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml  
                 """
               }
            }

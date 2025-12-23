@@ -20,6 +20,11 @@ pipeline {
                 sh 'mvn clean package'  // Tests will run and coverage report will be generated
             }
         }
+        stage('Check JaCoCo Report') {
+            steps {
+                sh 'ls -l target/site/jacoco/'
+            }
+        }
         stage('SonarQube Analysis') {
             steps {
                // Load SonarQube server URL and configuration from Jenkins

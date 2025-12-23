@@ -24,7 +24,7 @@ pipeline {
             steps {
                // Load SonarQube server URL and configuration from Jenkins
                // Retrieve SonarQube Global Analysis Token securely from Jenkins
-               withSonarQubeEnv('SonarQube') {
+               withSonarQubeEnv('Sonarqube') {
                    withCredentials([string(
                        credentialsId: 'sonarqube-token',
                        variable: 'SONAR_TOKEN'

@@ -26,7 +26,7 @@ pipeline {
                // Retrieve SonarQube Global Analysis Token securely from Jenkins
                withSonarQubeEnv('Sonarqube') {
                    withCredentials([string(
-                       credentialsId: 'sonarqube-token',
+                       credentialsId: 'sonarqube_token',
                        variable: 'SONAR_TOKEN'
                 )]) {
                 // Run SonarQube analysis using Maven Sonar plugin

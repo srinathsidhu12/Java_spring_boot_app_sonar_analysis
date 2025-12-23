@@ -20,7 +20,27 @@ pipeline {
                 sh 'mvn clean package -DskipTests'
             }
         }
-
+        stage('SonarQube Analysis') {
+            steps {
+               // Load SonarQube server URL and configuration from Jenkins
+               // Retrieve SonarQube Global Analysis Token securely from Jenkins
+               withSonarQubeEnv('SonarQube') {
+                   withCredentials([string(
+                       credentialsId: 'sonarqube-token',
+                       variable: 'SONAR_TOKEN'
+                )]) {
+                // Run SonarQube analysis using Maven Sonar plugin
+                // Unique identifier for the project in SonarQube
+                // Token used by Jenkins to authenticate with SonarQube
+                sh """
+                  mvn sonar:sonar \
+                    -Dsonar.projectKey=my-project \
+                    -Dsonar.login=\$SONAR_TOKEN
+                """
+              }
+           }
+         }   
+       }
         stage('Build Docker Image') {
             steps {
                 sh """
